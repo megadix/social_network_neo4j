@@ -153,23 +153,7 @@ public class Application extends Neo4jConfiguration implements CommandLineRunner
         try {
             Person p = personRepository.findOne(1L);
 
-            /*
-            Iterable<Person> suggestedFriends = personRepository.recommendFriends(p.getId());
-            System.out.println("\nSuggested friends for " + p.getName() + ":");
-            for (Person suggested : suggestedFriends) {
-                System.out.println(suggested.getName());
-            }
-             */
-
             StringBuilder sb = new StringBuilder();
-            /*
-            sb.append("MATCH (n:Person {id: {personId}})-[:FRIEND*2..2]-(friend_of_friend)");
-            sb.append(" WHERE NOT (n)-[:FRIEND]-(friend_of_friend)");
-            sb.append(" RETURN friend_of_friend, COUNT(*)");
-            sb.append(" ORDER BY COUNT(*) DESC , friend_of_friend.name");
-            */
-
-            // sb.append("START p=node({personId}) RETURN p");
             sb.append("START p = node({personId})");
             sb.append(" MATCH p -[:FRIEND * 2..2]- friend_of_friend");
             sb.append(" WHERE NOT(p) -[:FRIEND]- friend_of_friend");
